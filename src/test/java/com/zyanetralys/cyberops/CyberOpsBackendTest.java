@@ -1,7 +1,6 @@
 package com.zyanetralys.cyberops;
 
 import org.junit.jupiter.api.Test;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,9 +21,6 @@ class CyberOpsBackendTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
     @Test
     void connectEndpointReturnsDemoSession() throws Exception {
         mockMvc.perform(get("/api/connect"))
@@ -41,8 +37,8 @@ class CyberOpsBackendTest {
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
-        String firstId = objectMapper.readTree(first).get("sessionId").asText();
-        String secondId = objectMapper.readTree(second).get("sessionId").asText();
+        String firstId = com.jayway.jsonpath.JsonPath.read(first, "$.sessionId");
+        String secondId = com.jayway.jsonpath.JsonPath.read(second, "$.sessionId");
 
         assertDoesNotThrow(() -> UUID.fromString(firstId));
         assertDoesNotThrow(() -> UUID.fromString(secondId));
