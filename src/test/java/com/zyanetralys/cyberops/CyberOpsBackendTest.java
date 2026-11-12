@@ -1,6 +1,7 @@
 package com.zyanetralys.cyberops;
 
 import org.junit.jupiter.api.Test;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,6 +22,9 @@ class CyberOpsBackendTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @Test
     void connectEndpointReturnsDemoSession() throws Exception {
         mockMvc.perform(get("/api/connect"))
@@ -37,12 +41,8 @@ class CyberOpsBackendTest {
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
-        String firstId = org.springframework.util.StringUtils
-                .commaDelimitedListToStringArray(first).length > 0
-                ? new com.fasterxml.jackson.databind.ObjectMapper().readTree(first).get("sessionId").asText()
-                : "";
-        String secondId = new com.fasterxml.jackson.databind.ObjectMapper()
-                .readTree(second).get("sessionId").asText();
+        String firstId = objectMapper.readTree(first).get("sessionId").asText();
+        String secondId = objectMapper.readTree(second).get("sessionId").asText();
 
         assertDoesNotThrow(() -> UUID.fromString(firstId));
         assertDoesNotThrow(() -> UUID.fromString(secondId));
@@ -63,7 +63,7 @@ class CyberOpsBackendTest {
 
     @Test
     void streamRejectsMalformedSessionIdentifiers() throws Exception {
-        mockMvc.perform(get("/api/stream/not%20a%20valid%20id"))
+        mockMvc.perform(get("/api/stream/not_valid!"))
                 .andExpect(status().isBadRequest());
     }
 
