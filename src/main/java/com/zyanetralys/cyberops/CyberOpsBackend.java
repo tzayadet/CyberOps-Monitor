@@ -62,7 +62,7 @@ public class CyberOpsBackend {
 
     private Map<String, Object> generateChat() {
         Map<String, String> bot = Map.of(
-            "id", "B"+RAND.nextInt(6)+1,
+            "id", "B" + (RAND.nextInt(6) + 1),
             "handle", BOTS[RAND.nextInt(BOTS.length)],
             "role", ROLES[RAND.nextInt(ROLES.length)]
         );
