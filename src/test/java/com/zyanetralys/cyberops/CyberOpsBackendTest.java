@@ -53,7 +53,7 @@ class CyberOpsBackendTest {
                 .andExpect(header().doesNotExist("Access-Control-Allow-Credentials"));
 
         mockMvc.perform(get("/api/connect").header("Origin", "https://untrusted.example"))
-                .andExpect(status().isOk())
+                .andExpect(status().isForbidden())
                 .andExpect(header().doesNotExist("Access-Control-Allow-Origin"));
     }
 
