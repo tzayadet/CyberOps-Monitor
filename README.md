@@ -2,6 +2,9 @@
 
 SOC / Threat Intelligence dashboard simulator built with HTML, CSS, JavaScript and a Java / Spring Boot backend using Server-Sent Events (SSE).
 
+**Static demo:** https://tzayadet.github.io/CyberOps-Monitor/  
+The Pages version is a browser-side simulation. The Java/Spring Boot backend must be run separately for the SSE integration; generated events are synthetic, not real telemetry.
+
 ## What it does
 
 - Displays a visual map and a stream of synthetic events.
