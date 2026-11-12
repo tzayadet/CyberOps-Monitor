@@ -17,7 +17,7 @@ An interactive SOC-style dashboard for exploring synthetic security events, plus
 - Separate Spring Boot API for generating SSE events.
 - Short-lived opaque session IDs issued by `/api/connect`.
 - SSE stream access restricted to registered, unexpired session IDs.
-- Session registry capped at 500 entries; sessions expire after 10 minutes.
+- Session registry capped atomically at 500 entries, including concurrent connection attempts; sessions expire after 10 minutes.
 - Maximum of 20 active SSE streams, with a 60-second stream timeout.
 - CORS allowlist configurable through `app.cors.allowed-origins`.
 
@@ -75,7 +75,7 @@ The published GitHub Pages dashboard runs its own browser-side simulation and do
 mvn --batch-mode verify
 ```
 
-The test suite covers session issuance, UUID uniqueness, CORS restrictions, malformed stream IDs and rejection of unknown session IDs.
+The test suite covers session issuance, UUID uniqueness, concurrent session-cap enforcement, CORS restrictions, malformed stream IDs and rejection of unknown session IDs.
 
 ## Scope and limitations
 
