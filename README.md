@@ -1,70 +1,81 @@
+<p align="center">
+  <img src="https://img.shields.io/badge/BLUE_TEAM-SOC_EVENT_SIMULATOR-101010?style=for-the-badge&labelColor=050805&color=00FF41" alt="SOC Event Simulator"/>
+  <img src="https://img.shields.io/badge/JAVA-SPRING_BOOT-101010?style=for-the-badge&logo=springboot&logoColor=00FF41" alt="Spring Boot"/>
+</p>
+
 # SOC Event Simulation Dashboard
 
-[![Java CI](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/java-ci.yml/badge.svg)](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/java-ci.yml) [![GitHub Pages](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/jekyll-gh-pages.yml/badge.svg)](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/jekyll-gh-pages.yml)
+Dashboard experimental para visualizar eventos de seguridad sintéticos y explorar una arquitectura de streaming basada en Java, Spring Boot y Server-Sent Events (SSE).
 
-**Repository:** CyberOps-Monitor
+<p align="center">
+  <a href="https://tzayadet.github.io/CyberOps-Monitor/"><strong>LIVE DEMO ↗</strong></a> ·
+  <a href="https://github.com/tzayadet/CyberOps-Monitor"><strong>SOURCE CODE</strong></a>
+</p>
 
-SOC event and threat-visualization prototype built with HTML, CSS, JavaScript and a separately runnable Java / Spring Boot backend exposing a Server-Sent Events (SSE) endpoint.
+[![Java CI](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/java-ci.yml/badge.svg)](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/java-ci.yml) · [![GitHub Pages](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/jekyll-gh-pages.yml/badge.svg)](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/jekyll-gh-pages.yml)
 
-**Live static demo:** [CyberOps Monitor](https://tzayadet.github.io/CyberOps-Monitor/)  
-The Pages version is a self-contained browser-side simulation. The Java/Spring Boot backend exposes a separate SSE endpoint, but the current frontend does not consume it. Generated events are synthetic, not real telemetry.
+> Los eventos, países, alertas y severidades de la demo son ficticios. No representan telemetría, detecciones ni inteligencia de amenazas reales.
 
 ## What it does
 
-- Displays a visual map and a stream of synthetic events.
-- Generates fictional messages and alerts from the backend.
-- Provides a separate SSE endpoint that streams synthetic events to an SSE client.
-- Demonstrates event-driven UI updates and asynchronous backend communication.
+- Presenta un mapa visual y un flujo de eventos sintéticos.
+- Simula alertas y actividad para probar componentes de visualización.
+- Incluye un backend Java con un endpoint SSE independiente.
+- Permite explorar actualizaciones asíncronas mediante Server-Sent Events.
 
-## What it does not do
-
-Countries, attacks, bots, severity levels and statuses are generated randomly. **They are not real telemetry, threat intelligence or security detections.** The project does not connect to a SIEM, EDR, CTI feeds or production infrastructure.
-
-## Technology stack
+## Technology
 
 - Java 17
 - Spring Boot 3.2
 - Spring Web
-- HTML, CSS and JavaScript
 - Server-Sent Events
+- HTML, CSS y JavaScript
 
-## Run the backend locally
+## Run the backend
 
-Requirements: JDK 17 and Maven.
+**Requirements:** JDK 17 and Maven.
 
 ```bash
 mvn spring-boot:run
 ```
 
-The backend listens on `127.0.0.1:8080` by default. To change the allowed browser origin, set `CORS_ALLOWED_ORIGINS` (comma-separated); to change the bind address, set `SERVER_ADDRESS`. Serve the static interface locally with:
+El backend escucha por defecto en `127.0.0.1:8080`.
+
+Para servir la interfaz estática en local:
 
 ```bash
 python -m http.server 5500
 ```
 
-The static UI currently runs its own simulation and does not call the backend. The backend allows only `http://localhost:5500` by default for future/local browser clients; configure `CORS_ALLOWED_ORIGINS` explicitly for another origin. Do not expose the backend to a public network without authentication, authorization, restrictive CORS rules and resource limits.
+La interfaz publicada actualmente ejecuta su propia simulación en el navegador y no consume el endpoint SSE. El backend es un componente separado.
 
-Run the backend tests with:
+## Tests
 
 ```bash
 mvn --batch-mode verify
 ```
 
-GitHub Actions performs this build and test on each push and pull request.
+GitHub Actions ejecuta la compilación y las pruebas en push y pull requests.
 
-## GitHub Pages
+## Project layout
 
-GitHub Pages can publish the static interface, but it cannot execute the Java backend. The public page is therefore a frontend demonstration, not a connection to a live SOC.
+| Path | Purpose |
+|---|---|
+| `index.html` | Dashboard estático |
+| `src/main/java/` | Backend Spring Boot y configuración CORS |
+| `src/test/java/` | Pruebas del backend |
+| `pom.xml` | Configuración Maven |
+| `.github/workflows/` | CI y publicación |
 
-## Source files
+## Scope & limitations
 
-- `index.html`: static dashboard interface.
-- `src/main/java/com/zyanetralys/cyberops/CyberOpsBackend.java`: Java/Spring Boot SSE backend.
-- `src/main/java/com/zyanetralys/cyberops/CorsConfig.java`: explicit CORS allowlist.
-- `src/main/resources/application.properties`: local bind address and CORS configuration.
-- `src/test/java/com/zyanetralys/cyberops/CyberOpsBackendTest.java`: backend smoke test.
-- `pom.xml`: Maven configuration.
-- `Readme.md`: earlier project notes.
+No es un SIEM, SOC ni plataforma de detección. No se conecta a EDR, SIEM, feeds CTI ni infraestructura real. Los eventos son generados para demostración.
+
+El backend no debe exponerse a redes públicas sin autenticación, autorización, CORS restrictivo y límites de recursos.
+
+## Deployment
+
+GitHub Pages publica únicamente la interfaz estática. No ejecuta el backend Java. La demo no debe confundirse con una consola SOC conectada a fuentes reales.
 
 ## License
 
