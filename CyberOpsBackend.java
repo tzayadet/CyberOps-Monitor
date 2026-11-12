@@ -52,11 +52,12 @@ public class CyberOpsBackend {
             "role", ROLES[RAND.nextInt(ROLES.length)]
         );
         String kw = KEYWORDS[RAND.nextInt(KEYWORDS.length)];
-        Map<String, Object> msg = Map.of(
-            "text", "scanning "+kw+" artifacts, updating EDR rules",
-            "replyTarget", RAND.nextBoolean() ? "@"+BOTS[RAND.nextInt(BOTS.length)] : null,
-            "kw", kw
-        );
+        Map<String, Object> msg = new HashMap<>();
+        msg.put("text", "scanning "+kw+" artifacts, updating EDR rules");
+        if (RAND.nextBoolean()) {
+            msg.put("replyTarget", "@"+BOTS[RAND.nextInt(BOTS.length)]);
+        }
+        msg.put("kw", kw);
         return Map.of("type", "chat", "bot", bot, "msg", msg, "ts", Instant.now().toString());
     }
 
