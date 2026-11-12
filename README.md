@@ -2,16 +2,16 @@
 
 **Repository:** CyberOps-Monitor
 
-SOC event-stream and threat-visualization simulator built with HTML, CSS, JavaScript and a Java / Spring Boot backend using Server-Sent Events (SSE).
+SOC event and threat-visualization prototype built with HTML, CSS, JavaScript and a separately runnable Java / Spring Boot backend exposing a Server-Sent Events (SSE) endpoint.
 
 **Static demo:** https://tzayadet.github.io/CyberOps-Monitor/  
-The Pages version is a browser-side simulation. The Java/Spring Boot backend must be run separately for the SSE integration; generated events are synthetic, not real telemetry.
+The Pages version is a self-contained browser-side simulation. The Java/Spring Boot backend exposes a separate SSE endpoint, but the current frontend does not consume it. Generated events are synthetic, not real telemetry.
 
 ## What it does
 
 - Displays a visual map and a stream of synthetic events.
 - Generates fictional messages and alerts from the backend.
-- Exposes an SSE endpoint to feed the interface with real-time events.
+- Provides a separate SSE endpoint that streams synthetic events to an SSE client.
 - Demonstrates event-driven UI updates and asynchronous backend communication.
 
 ## What it does not do
@@ -40,7 +40,7 @@ The backend listens on `127.0.0.1:8080` by default. To change the allowed browse
 python -m http.server 5500
 ```
 
-The static UI and backend must use compatible origins. The backend allows only `http://localhost:5500` by default; configure `CORS_ALLOWED_ORIGINS` explicitly for another frontend origin. Do not expose the backend to a public network without authentication, authorization, restrictive CORS rules and resource limits.
+The static UI currently runs its own simulation and does not call the backend. The backend allows only `http://localhost:5500` by default for future/local browser clients; configure `CORS_ALLOWED_ORIGINS` explicitly for another origin. Do not expose the backend to a public network without authentication, authorization, restrictive CORS rules and resource limits.
 
 Run the backend tests with:
 
