@@ -50,16 +50,18 @@ public class CyberOpsBackend {
     @GetMapping("/api/connect")
     public Map<String, String> connect() {
         long now = System.currentTimeMillis();
-        sessions.entrySet().removeIf(entry -> entry.getValue() <= now);
-        if (sessions.size() >= MAX_SESSIONS) {
-            throw new ResponseStatusException(
-                HttpStatus.SERVICE_UNAVAILABLE,
-                "Session capacity reached. Retry later."
-            );
+        synchronized (sessions) {
+            sessions.entrySet().removeIf(entry -> entry.getValue() <= now);
+            if (sessions.size() >= MAX_SESSIONS) {
+                throw new ResponseStatusException(
+                    HttpStatus.SERVICE_UNAVAILABLE,
+                    "Session capacity reached. Retry later."
+                );
+            }
+            String sessionId = UUID.randomUUID().toString();
+            sessions.put(sessionId, now + SESSION_TTL_MS);
+            return Map.of("sessionId", sessionId, "status", "connected");
         }
-        String sessionId = UUID.randomUUID().toString();
-        sessions.put(sessionId, now + SESSION_TTL_MS);
-        return Map.of("sessionId", sessionId, "status", "connected");
     }
 
     @GetMapping(value = "/api/stream/{id}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
