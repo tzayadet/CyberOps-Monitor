@@ -7,7 +7,7 @@ Dashboard visual de simulación de actividad SOC/Threat Intelligence, construido
 - Presenta un mapa visual y un flujo de eventos sintéticos.
 - Genera mensajes y alertas ficticias desde el backend.
 - Expone un canal SSE para alimentar la interfaz en tiempo real.
-- Sirve como demostración de visualización, eventos asíncronos y estructura de una aplicación Spring Boot.
+- Sirve como demostración de visualización y eventos asíncronos.
 
 ## Qué no hace
 
@@ -28,7 +28,7 @@ Requisitos: JDK 17 y Maven.
 mvn spring-boot:run
 ```
 
-El backend se inicia en el puerto 8080 por defecto. La interfaz estática puede abrirse localmente con un servidor HTTP:
+El backend se inicia en el puerto 8080 por defecto. La interfaz estática puede abrirse localmente con:
 
 ```bash
 python -m http.server 5500
