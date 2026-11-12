@@ -21,6 +21,8 @@ import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 @SpringBootApplication
 @RestController
@@ -28,9 +30,12 @@ public class CyberOpsBackend {
 
     private static final int MAX_ACTIVE_STREAMS = 20;
     private static final long STREAM_TIMEOUT_MS = 60_000L;
+    private static final long SESSION_TTL_MS = TimeUnit.MINUTES.toMillis(10);
+    private static final int MAX_SESSIONS = 500;
 
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(5);
     private final Semaphore activeStreams = new Semaphore(MAX_ACTIVE_STREAMS);
+    private final ConcurrentMap<String, Long> sessions = new ConcurrentHashMap<>();
 
     private static final String[] BOTS = {"NullPtr","CipherWolf","KernelPanic","PhantomRoot","ZeroTrust","DarkNode"};
     private static final String[] ROLES = {"SOC L2","Threat Hunter","Red Team","Reverse Eng","Cloud Sec","IR Lead"};
@@ -44,7 +49,17 @@ public class CyberOpsBackend {
 
     @GetMapping("/api/connect")
     public Map<String, String> connect() {
-        return Map.of("sessionId", UUID.randomUUID().toString(), "status", "connected");
+        long now = System.currentTimeMillis();
+        sessions.entrySet().removeIf(entry -> entry.getValue() <= now);
+        if (sessions.size() >= MAX_SESSIONS) {
+            throw new ResponseStatusException(
+                HttpStatus.SERVICE_UNAVAILABLE,
+                "Session capacity reached. Retry later."
+            );
+        }
+        String sessionId = UUID.randomUUID().toString();
+        sessions.put(sessionId, now + SESSION_TTL_MS);
+        return Map.of("sessionId", sessionId, "status", "connected");
     }
 
     @GetMapping(value = "/api/stream/{id}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
@@ -52,6 +67,14 @@ public class CyberOpsBackend {
         if (id == null || !id.matches("[A-Za-z0-9-]{1,64}")) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid stream identifier.");
         }
+        long now = System.currentTimeMillis();
+        Long expiresAt = sessions.get(id);
+        if (expiresAt == null || expiresAt <= now) {
+            sessions.remove(id);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unknown or expired session.");
+        }
+        sessions.replace(id, expiresAt, now + SESSION_TTL_MS);
+
         if (!activeStreams.tryAcquire()) {
             throw new ResponseStatusException(
                 HttpStatus.SERVICE_UNAVAILABLE,
@@ -112,6 +135,7 @@ public class CyberOpsBackend {
     @PreDestroy
     public void shutdownScheduler() {
         scheduler.shutdownNow();
+        sessions.clear();
     }
 
     private Map<String, Object> generateChat(ThreadLocalRandom random) {
