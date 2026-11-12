@@ -63,4 +63,10 @@ class CyberOpsBackendTest {
                 .andExpect(status().isBadRequest());
     }
 
+    @Test
+    void streamRejectsUnknownSessionIdentifiers() throws Exception {
+        mockMvc.perform(get("/api/stream/00000000-0000-0000-0000-000000000000"))
+                .andExpect(status().isNotFound());
+    }
+
 }
