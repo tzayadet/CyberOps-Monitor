@@ -32,13 +32,21 @@ Requirements: JDK 17 and Maven.
 mvn spring-boot:run
 ```
 
-The backend listens on port 8080 by default. Serve the static interface locally with:
+The backend listens on `127.0.0.1:8080` by default. To change the allowed browser origin, set `CORS_ALLOWED_ORIGINS` (comma-separated); to change the bind address, set `SERVER_ADDRESS`. Serve the static interface locally with:
 
 ```bash
 python -m http.server 5500
 ```
 
-The static UI and backend must use compatible origins and CORS configuration. Do not expose the backend to a public network without authentication, authorization, restrictive CORS rules and resource limits.
+The static UI and backend must use compatible origins. The backend allows only `http://localhost:5500` by default; configure `CORS_ALLOWED_ORIGINS` explicitly for another frontend origin. Do not expose the backend to a public network without authentication, authorization, restrictive CORS rules and resource limits.
+
+Run the backend tests with:
+
+```bash
+mvn --batch-mode verify
+```
+
+GitHub Actions performs this build and test on each push and pull request.
 
 ## GitHub Pages
 
