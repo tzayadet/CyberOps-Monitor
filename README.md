@@ -1,35 +1,29 @@
-<p align="center">
-  <img src="https://img.shields.io/badge/BLUE_TEAM-SOC_EVENT_SIMULATOR-101010?style=for-the-badge&labelColor=050805&color=00FF41" alt="SOC Event Simulator"/>
-  <img src="https://img.shields.io/badge/JAVA-SPRING_BOOT-101010?style=for-the-badge&logo=springboot&logoColor=00FF41" alt="Spring Boot"/>
-</p>
-
 # SOC Event Simulation Dashboard
 
-Dashboard experimental para visualizar eventos de seguridad sintéticos y explorar una arquitectura de streaming basada en Java, Spring Boot y Server-Sent Events (SSE).
+An experimental dashboard for visualising synthetic security events and exploring a Java/Spring Boot streaming architecture using Server-Sent Events (SSE).
 
 <p align="center">
-  <a href="https://tzayadet.github.io/CyberOps-Monitor/"><strong>LIVE DEMO ↗</strong></a> ·
-  <a href="https://github.com/tzayadet/CyberOps-Monitor"><strong>SOURCE CODE</strong></a>
+  <a href="https://tzayadet.github.io/CyberOps-Monitor/"><img src="https://img.shields.io/badge/LIVE_DEMO-OPEN-00a86b?style=flat-square" alt="Live demo"></a>
+  <a href="https://github.com/tzayadet/CyberOps-Monitor"><img src="https://img.shields.io/badge/SOURCE-GITHUB-161b22?style=flat-square&logo=github" alt="Source"></a>
 </p>
 
-[![Java CI](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/java-ci.yml/badge.svg)](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/java-ci.yml) · [![GitHub Pages](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/jekyll-gh-pages.yml/badge.svg)](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/jekyll-gh-pages.yml)
+[![Java CI](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/java-ci.yml/badge.svg)](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/java-ci.yml) · [![Pages](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/jekyll-gh-pages.yml/badge.svg)](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/jekyll-gh-pages.yml)
 
-> Los eventos, países, alertas y severidades de la demo son ficticios. No representan telemetría, detecciones ni inteligencia de amenazas reales.
+> All events, countries, alerts and severity levels shown in the demo are synthetic. They are not live telemetry or threat intelligence.
 
 ## What it does
 
-- Presenta un mapa visual y un flujo de eventos sintéticos.
-- Simula alertas y actividad para probar componentes de visualización.
-- Incluye un backend Java con un endpoint SSE independiente.
-- Permite explorar actualizaciones asíncronas mediante Server-Sent Events.
+- Displays a visual event stream and simulated alerts.
+- Provides a browser interface for exploring dashboard components.
+- Includes a separate Java backend with an SSE endpoint.
+- Demonstrates asynchronous event delivery using Server-Sent Events.
 
 ## Technology
 
 - Java 17
 - Spring Boot 3.2
-- Spring Web
-- Server-Sent Events
-- HTML, CSS y JavaScript
+- Spring Web and Server-Sent Events
+- HTML, CSS and JavaScript
 
 ## Run the backend
 
@@ -39,15 +33,23 @@ Dashboard experimental para visualizar eventos de seguridad sintéticos y explor
 mvn spring-boot:run
 ```
 
-El backend escucha por defecto en `127.0.0.1:8080`.
-
-Para servir la interfaz estática en local:
+The backend listens on `127.0.0.1:8080` by default. To serve the static interface locally:
 
 ```bash
 python -m http.server 5500
 ```
 
-La interfaz publicada actualmente ejecuta su propia simulación en el navegador y no consume el endpoint SSE. El backend es un componente separado.
+The published browser demo currently runs its own simulation and does not consume the Java SSE endpoint. The backend is a separate component.
+
+## Project structure
+
+| Path | Purpose |
+|---|---|
+| `index.html` | Static dashboard |
+| `src/main/java/` | Spring Boot backend |
+| `src/test/java/` | Backend tests |
+| `pom.xml` | Maven configuration |
+| `.github/workflows/` | CI and Pages workflows |
 
 ## Tests
 
@@ -55,27 +57,15 @@ La interfaz publicada actualmente ejecuta su propia simulación en el navegador 
 mvn --batch-mode verify
 ```
 
-GitHub Actions ejecuta la compilación y las pruebas en push y pull requests.
+## Scope and limitations
 
-## Project layout
+This is not a SIEM, SOC or detection platform. It does not connect to EDR, SIEM, CTI feeds or production infrastructure. Events are generated for demonstration.
 
-| Path | Purpose |
-|---|---|
-| `index.html` | Dashboard estático |
-| `src/main/java/` | Backend Spring Boot y configuración CORS |
-| `src/test/java/` | Pruebas del backend |
-| `pom.xml` | Configuración Maven |
-| `.github/workflows/` | CI y publicación |
-
-## Scope & limitations
-
-No es un SIEM, SOC ni plataforma de detección. No se conecta a EDR, SIEM, feeds CTI ni infraestructura real. Los eventos son generados para demostración.
-
-El backend no debe exponerse a redes públicas sin autenticación, autorización, CORS restrictivo y límites de recursos.
+The GitHub Pages site publishes only the static interface; it does not run the Java backend. Do not expose the backend publicly without appropriate authentication, authorization, restrictive CORS and resource controls.
 
 ## Deployment
 
-GitHub Pages publica únicamente la interfaz estática. No ejecuta el backend Java. La demo no debe confundirse con una consola SOC conectada a fuentes reales.
+The static interface is published through GitHub Pages. Backend deployment requires a separate Java hosting environment.
 
 ## License
 
