@@ -55,7 +55,10 @@ GitHub Pages can publish the static interface, but it cannot execute the Java ba
 ## Source files
 
 - `index.html`: static dashboard interface.
-- `CyberOpsBackend.java`: Java backend.
+- `src/main/java/com/zyanetralys/cyberops/CyberOpsBackend.java`: Java/Spring Boot SSE backend.
+- `src/main/java/com/zyanetralys/cyberops/CorsConfig.java`: explicit CORS allowlist.
+- `src/main/resources/application.properties`: local bind address and CORS configuration.
+- `src/test/java/com/zyanetralys/cyberops/CyberOpsBackendTest.java`: backend smoke test.
 - `pom.xml`: Maven configuration.
 - `Readme.md`: earlier project notes.
 
