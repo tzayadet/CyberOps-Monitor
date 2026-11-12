@@ -1,16 +1,45 @@
 # CyberOps Monitor
-> **Real-time Threat Intelligence Simulator & Recruiter Dashboard**
 
-Plataforma de simulación y monitorización de amenazas en tiempo real, diseñada para entrenadores de ciberseguridad y reclutadores (SOC/Red Team) para evaluar competencias técnicas mediante interacciones simuladas.
+Dashboard visual de simulación de actividad SOC/Threat Intelligence, construido con HTML, CSS, JavaScript y un backend Java/Spring Boot con Server-Sent Events (SSE).
 
-![Status](https://img.shields.io/badge/Status-Active-brightgreen) ![Java](https://img.shields.io/badge/Java-17-orange) ![Spring](https://img.shields.io/badge/Spring_Boot-3.2-green) ![Frontend](https://img.shields.io/badge/Frontend-VanillaJS-blue)
+## Qué hace
 
----
+- Presenta un mapa visual y un flujo de eventos sintéticos.
+- Genera mensajes y alertas ficticias desde el backend.
+- Expone un canal SSE para alimentar la interfaz en tiempo real.
+- Sirve como demostración de visualización, eventos asíncronos y estructura de una aplicación Spring Boot.
 
-## 🚀 Características
+## Qué no hace
 
-- 🌍 **Global Threat Map:** Visualización de ataques en tiempo real sobre mapa mundial (Canvas).
-- 💬 **Chat Simulado:** 12 Bots con IA básica y 4 arquetipos de personalidad (Red Team, Analyst, etc.).
-- 📊 **Recruiter Dashboard:** Scoring automático de candidatos basado en keywords, respuestas y consistencia.
-- 🔌 **Real-time Backend:** Arquitectura Java/Spring Boot con Server-Sent Events (SSE).
-- 📁 **Exportación:** Generación de reportes en JSON/CSV para integración con ATS/SIEM.
+Los países, ataques, bots, severidades y estados se generan aleatoriamente. **No son telemetría real, inteligencia de amenazas ni detecciones de seguridad.** El proyecto no se conecta a un SIEM, EDR, fuentes CTI ni infraestructura de producción.
+
+## Stack
+
+- Java 17
+- Spring Boot 3.2
+- Spring Web
+- HTML, CSS y JavaScript
+
+## Ejecución del backend
+
+Requisitos: JDK 17 y Maven.
+
+```bash
+mvn spring-boot:run
+```
+
+El backend se inicia en el puerto 8080 por defecto. La interfaz estática puede abrirse localmente con un servidor HTTP:
+
+```bash
+python -m http.server 5500
+```
+
+La UI estática y el backend deben servirse desde orígenes compatibles con la configuración de CORS. No expongas el backend en una red pública sin autenticación, autorización, CORS restrictivo y límites de recursos.
+
+## GitHub Pages
+
+GitHub Pages puede publicar la interfaz estática, pero no ejecuta el backend Java. La página desplegada no debe interpretarse como una conexión a un SOC real.
+
+## Licencia
+
+MIT. Consulta [LICENSE](LICENSE).
