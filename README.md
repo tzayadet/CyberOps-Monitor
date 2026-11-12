@@ -1,10 +1,12 @@
 # SOC Event Simulation Dashboard
 
+[![Java CI](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/java-ci.yml/badge.svg)](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/java-ci.yml) [![GitHub Pages](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/jekyll-gh-pages.yml/badge.svg)](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/jekyll-gh-pages.yml)
+
 **Repository:** CyberOps-Monitor
 
 SOC event and threat-visualization prototype built with HTML, CSS, JavaScript and a separately runnable Java / Spring Boot backend exposing a Server-Sent Events (SSE) endpoint.
 
-**Static demo:** https://tzayadet.github.io/CyberOps-Monitor/  
+**Live static demo:** [CyberOps Monitor](https://tzayadet.github.io/CyberOps-Monitor/)  
 The Pages version is a self-contained browser-side simulation. The Java/Spring Boot backend exposes a separate SSE endpoint, but the current frontend does not consume it. Generated events are synthetic, not real telemetry.
 
 ## What it does
