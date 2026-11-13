@@ -12,7 +12,7 @@ An interactive SOC-style dashboard for exploring synthetic security events, plus
   <a href="https://github.com/tzayadet/CyberOps-Monitor"><strong>SOURCE CODE</strong></a>
 </p>
 
-[![Java CI](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/java-ci.yml/badge.svg)](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/java-ci.yml) · [![Pages](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/jekyll-gh-pages.yml/badge.svg)](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/jekyll-gh-pages.yml)
+[![Java CI](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/java-ci.yml/badge.svg)](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/java-ci.yml) · [![Pages](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/pages.yml/badge.svg)](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/pages.yml)
 
 > **Simulation only:** events, actors, countries, alerts and severity levels are synthetic. The dashboard is not connected to live telemetry, threat intelligence, EDR or SIEM platforms.
 
