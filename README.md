@@ -3,8 +3,13 @@
 An interactive SOC-style dashboard for exploring synthetic security events, plus a separate Java/Spring Boot backend that streams generated events through Server-Sent Events (SSE).
 
 <p align="center">
-  <a href="https://tzayadet.github.io/CyberOps-Monitor/"><img src="https://img.shields.io/badge/LIVE_DEMO-OPEN-00a86b?style=flat-square" alt="Live demo"></a>
-  <a href="https://github.com/tzayadet/CyberOps-Monitor"><img src="https://img.shields.io/badge/SOURCE-GITHUB-161b22?style=flat-square&logo=github" alt="Source"></a>
+  <img src="https://img.shields.io/badge/SOC_LAB-EVENT_SIMULATION-101010?style=for-the-badge&labelColor=050805&color=00FF41" alt="SOC event simulation"/>
+  <img src="https://img.shields.io/badge/JAVA-SPRING_BOOT-101010?style=for-the-badge&logo=springboot&logoColor=00FF41" alt="Java Spring Boot"/>
+</p>
+
+<p align="center">
+  <a href="https://tzayadet.github.io/CyberOps-Monitor/"><strong>LIVE DEMO ↗</strong></a> ·
+  <a href="https://github.com/tzayadet/CyberOps-Monitor"><strong>SOURCE CODE</strong></a>
 </p>
 
 [![Java CI](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/java-ci.yml/badge.svg)](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/java-ci.yml) · [![Pages](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/jekyll-gh-pages.yml/badge.svg)](https://github.com/tzayadet/CyberOps-Monitor/actions/workflows/jekyll-gh-pages.yml)
